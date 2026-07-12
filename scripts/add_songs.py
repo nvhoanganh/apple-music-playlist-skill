@@ -14,7 +14,7 @@ Default APPENDS (playlist created if missing, tracks already present skipped).
 --replace wipes the playlist and rebuilds it from the given songs.
 """
 import sys, json, time, subprocess, ssl, urllib.parse, urllib.request
-from common import load_config, get_dev_token, get_user_token
+from common import load_config, get_dev_token, get_user_token, get_user_storefront
 
 try:
     import certifi
@@ -157,10 +157,11 @@ def main():
     if not songs:
         raise SystemExit("No songs parsed.")
 
-    print(f"Resolving {len(songs)} songs via catalog...")
+    storefront = get_user_storefront(cfg, dev, usr)
+    print(f"Resolving {len(songs)} songs via catalog (storefront: {storefront})...")
     resolved, ids = [], []
     for artist, title in songs:
-        res = itunes_search(artist, title, cfg["storefront"])
+        res = itunes_search(artist, title, storefront)
         if res:
             ids.append(str(res["trackId"]))
             resolved.append((res["artistName"], res["trackName"]))

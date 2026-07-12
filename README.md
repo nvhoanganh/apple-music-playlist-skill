@@ -38,24 +38,23 @@ python3 -m pip install --user certifi
 ## 🚀 Usage
 
 Once installed, you mostly just **talk to Claude Code / Cowork** — it runs the
-scripts for you. Two one-time human steps first (Claude can't sign into your Apple
-account or edit your country for you unless asked).
+scripts for you. One one-time human step first: get your token (Claude can't sign
+into your Apple account for you).
 
-### One-time setup
+### One-time setup — get your Music User Token (once per ~6 months)
 
-**1. Set your country.** Ask Claude *"set my Apple Music storefront to au"*, or edit
-`config.json` yourself:
-```json
-{ "server_url": "https://applemusicplaylist.onrender.com", "storefront": "au" }
-```
-
-**2. Get your Music User Token** (once per ~6 months — requires you to sign in):
 ```bash
 cd ~/.claude/skills/applemusic-playlist
 python3 scripts/get_token.py
 ```
 Opens the [authorize page](https://applemusicplaylist.onrender.com/authorize).
 Sign in → token is shown and auto-copied → paste into `user_token.txt`.
+
+That's it. The server URL is preconfigured, and your country is **detected
+automatically** from your Apple Music account — no config editing needed.
+
+> Rarely needed: if catalog matches look wrong (e.g. the authorize page shows the
+> wrong country), set `"storefront"` in `config.json` to your code (`au`, `gb`, ...).
 
 ### Then just ask Claude
 

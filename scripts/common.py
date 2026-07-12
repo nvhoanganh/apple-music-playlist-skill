@@ -51,6 +51,20 @@ def get_dev_token(cfg):
     return token
 
 
+def get_user_storefront(cfg, dev, usr):
+    """The user's real Apple Music country (e.g. 'au'), read from their account.
+    Falls back to config storefront, then 'us'."""
+    try:
+        req = urllib.request.Request("https://api.music.apple.com/v1/me/storefront")
+        req.add_header("Authorization", f"Bearer {dev}")
+        req.add_header("Music-User-Token", usr)
+        with urllib.request.urlopen(req, timeout=15, context=SSL_CTX) as r:
+            data = json.load(r)
+        return data["data"][0]["id"]
+    except Exception:
+        return cfg.get("storefront", "us")
+
+
 def get_user_token():
     if not USER_TOKEN_FILE.exists():
         raise SystemExit(

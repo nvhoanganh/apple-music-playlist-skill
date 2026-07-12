@@ -16,8 +16,9 @@ You bring only your Apple Music subscription.
 
 1. **macOS** with Music.app signed into your Apple Music account.
 2. `python3 -m pip install --user certifi` (once).
-3. Set your country in `config.json` (`storefront`: `au`, `us`, `gb`, ...). The
-   `server_url` is preconfigured to the hosted dev-token server.
+3. Nothing to configure — `config.json` ships with the hosted `server_url`, and the
+   storefront (country) is auto-detected from the user's account. Only override
+   `storefront` in `config.json` if detection looks wrong.
 
 ## Get your Music User Token (expires ~6 months)
 
