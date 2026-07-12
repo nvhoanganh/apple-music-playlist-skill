@@ -37,12 +37,19 @@ python3 -m pip install --user certifi
 
 ## 🚀 Usage
 
-**1. Set your country** in `config.json`:
+Once installed, you mostly just **talk to Claude Code / Cowork** — it runs the
+scripts for you. Two one-time human steps first (Claude can't sign into your Apple
+account or edit your country for you unless asked).
+
+### One-time setup
+
+**1. Set your country.** Ask Claude *"set my Apple Music storefront to au"*, or edit
+`config.json` yourself:
 ```json
 { "server_url": "https://applemusicplaylist.onrender.com", "storefront": "au" }
 ```
 
-**2. Get your Music User Token** (once per ~6 months):
+**2. Get your Music User Token** (once per ~6 months — requires you to sign in):
 ```bash
 cd ~/.claude/skills/applemusic-playlist
 python3 scripts/get_token.py
@@ -50,20 +57,23 @@ python3 scripts/get_token.py
 Opens the [authorize page](https://applemusicplaylist.onrender.com/authorize).
 Sign in → token is shown and auto-copied → paste into `user_token.txt`.
 
-**3. Add songs.** Make `songs.txt`, one `Artist - Title` per line:
-```
-Dire Straits - Iron Hand
-Neil Young - Heart of Gold
-John Mayer - Slow Dancing in a Burning Room (Acoustic)
-```
-Then:
+### Then just ask Claude
+
+> add these to my Apple Music playlist **"Road Trip"**:
+> Fleetwood Mac - Landslide, Neil Young - Heart of Gold, Dire Straits - Iron Hand
+
+Claude resolves the songs, adds any missing ones to your library, and sweeps them
+into the playlist — appending by default, skipping duplicates.
+
+<details>
+<summary>Run manually (without Claude)</summary>
+
+Make `songs.txt`, one `Artist - Title` per line, then:
 ```bash
 python3 scripts/add_songs.py "My Playlist" songs.txt            # append (default)
 python3 scripts/add_songs.py "My Playlist" songs.txt --replace  # wipe + rebuild
 ```
-
-Or, in Claude Code, just say:
-> add these to my Apple Music playlist "Road Trip": Fleetwood Mac - Landslide, ...
+</details>
 
 ## 🔧 How it works
 
