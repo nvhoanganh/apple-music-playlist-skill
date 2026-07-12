@@ -1,0 +1,10 @@
+# Personal tokens — never commit
+user_token.txt
+dev_token.json
+config.local.json
+
+# junk
+.DS_Store
+__pycache__/
+*.pyc
+songs.txt
